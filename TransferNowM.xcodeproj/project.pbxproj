@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		659126611B30A6ED0045255B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126601B30A6ED0045255B /* AppDelegate.m */; };
+		659126631B30A6ED0045255B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126621B30A6ED0045255B /* main.m */; };
+		659126661B30A6ED0045255B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126651B30A6ED0045255B /* ViewController.m */; };
+		659126681B30A6ED0045255B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659126671B30A6ED0045255B /* Images.xcassets */; };
+		6591266B1B30A6ED0045255B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 659126691B30A6ED0045255B /* Main.storyboard */; };
+		659126771B30A6ED0045255B /* TransferNowMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126761B30A6ED0045255B /* TransferNowMTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		659126711B30A6ED0045255B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 659126521B30A6EC0045255B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 659126591B30A6ED0045255B;
+			remoteInfo = TransferNowM;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6591265A1B30A6ED0045255B /* TransferNowM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransferNowM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6591265E1B30A6ED0045255B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6591265F1B30A6ED0045255B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		659126601B30A6ED0045255B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		659126621B30A6ED0045255B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		659126641B30A6ED0045255B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		659126651B30A6ED0045255B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		659126671B30A6ED0045255B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6591266A1B30A6ED0045255B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		659126701B30A6ED0045255B /* TransferNowMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransferNowMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		659126751B30A6ED0045255B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		659126761B30A6ED0045255B /* TransferNowMTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferNowMTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		659126571B30A6ED0045255B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6591266D1B30A6ED0045255B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		659126511B30A6EC0045255B = {
+			isa = PBXGroup;
+			children = (
+				6591265C1B30A6ED0045255B /* TransferNowM */,
+				659126731B30A6ED0045255B /* TransferNowMTests */,
+				6591265B1B30A6ED0045255B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6591265B1B30A6ED0045255B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6591265A1B30A6ED0045255B /* TransferNowM.app */,
+				659126701B30A6ED0045255B /* TransferNowMTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6591265C1B30A6ED0045255B /* TransferNowM */ = {
+			isa = PBXGroup;
+			children = (
+				6591265F1B30A6ED0045255B /* AppDelegate.h */,
+				659126601B30A6ED0045255B /* AppDelegate.m */,
+				659126641B30A6ED0045255B /* ViewController.h */,
+				659126651B30A6ED0045255B /* ViewController.m */,
+				659126671B30A6ED0045255B /* Images.xcassets */,
+				659126691B30A6ED0045255B /* Main.storyboard */,
+				6591265D1B30A6ED0045255B /* Supporting Files */,
+			);
+			path = TransferNowM;
+			sourceTree = "<group>";
+		};
+		6591265D1B30A6ED0045255B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6591265E1B30A6ED0045255B /* Info.plist */,
+				659126621B30A6ED0045255B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		659126731B30A6ED0045255B /* TransferNowMTests */ = {
+			isa = PBXGroup;
+			children = (
+				659126761B30A6ED0045255B /* TransferNowMTests.m */,
+				659126741B30A6ED0045255B /* Supporting Files */,
+			);
+			path = TransferNowMTests;
+			sourceTree = "<group>";
+		};
+		659126741B30A6ED0045255B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				659126751B30A6ED0045255B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		659126591B30A6ED0045255B /* TransferNowM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6591267A1B30A6ED0045255B /* Build configuration list for PBXNativeTarget "TransferNowM" */;
+			buildPhases = (
+				659126561B30A6ED0045255B /* Sources */,
+				659126571B30A6ED0045255B /* Frameworks */,
+				659126581B30A6ED0045255B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TransferNowM;
+			productName = TransferNowM;
+			productReference = 6591265A1B30A6ED0045255B /* TransferNowM.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6591266F1B30A6ED0045255B /* TransferNowMTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6591267D1B30A6ED0045255B /* Build configuration list for PBXNativeTarget "TransferNowMTests" */;
+			buildPhases = (
+				6591266C1B30A6ED0045255B /* Sources */,
+				6591266D1B30A6ED0045255B /* Frameworks */,
+				6591266E1B30A6ED0045255B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				659126721B30A6ED0045255B /* PBXTargetDependency */,
+			);
+			name = TransferNowMTests;
+			productName = TransferNowMTests;
+			productReference = 659126701B30A6ED0045255B /* TransferNowMTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		659126521B30A6EC0045255B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Maria Grynychyn";
+				TargetAttributes = {
+					659126591B30A6ED0045255B = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					6591266F1B30A6ED0045255B = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 659126591B30A6ED0045255B;
+					};
+				};
+			};
+			buildConfigurationList = 659126551B30A6EC0045255B /* Build configuration list for PBXProject "TransferNowM" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 659126511B30A6EC0045255B;
+			productRefGroup = 6591265B1B30A6ED0045255B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				659126591B30A6ED0045255B /* TransferNowM */,
+				6591266F1B30A6ED0045255B /* TransferNowMTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		659126581B30A6ED0045255B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				659126681B30A6ED0045255B /* Images.xcassets in Resources */,
+				6591266B1B30A6ED0045255B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6591266E1B30A6ED0045255B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		659126561B30A6ED0045255B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				659126661B30A6ED0045255B /* ViewController.m in Sources */,
+				659126631B30A6ED0045255B /* main.m in Sources */,
+				659126611B30A6ED0045255B /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6591266C1B30A6ED0045255B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				659126771B30A6ED0045255B /* TransferNowMTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		659126721B30A6ED0045255B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 659126591B30A6ED0045255B /* TransferNowM */;
+			targetProxy = 659126711B30A6ED0045255B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		659126691B30A6ED0045255B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6591266A1B30A6ED0045255B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		659126781B30A6ED0045255B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		659126791B30A6ED0045255B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6591267B1B30A6ED0045255B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TransferNowM/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6591267C1B30A6ED0045255B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TransferNowM/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6591267E1B30A6ED0045255B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TransferNowMTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TransferNowM.app/Contents/MacOS/TransferNowM";
+			};
+			name = Debug;
+		};
+		6591267F1B30A6ED0045255B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TransferNowMTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TransferNowM.app/Contents/MacOS/TransferNowM";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		659126551B30A6EC0045255B /* Build configuration list for PBXProject "TransferNowM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				659126781B30A6ED0045255B /* Debug */,
+				659126791B30A6ED0045255B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6591267A1B30A6ED0045255B /* Build configuration list for PBXNativeTarget "TransferNowM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6591267B1B30A6ED0045255B /* Debug */,
+				6591267C1B30A6ED0045255B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6591267D1B30A6ED0045255B /* Build configuration list for PBXNativeTarget "TransferNowMTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6591267E1B30A6ED0045255B /* Debug */,
+				6591267F1B30A6ED0045255B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 659126521B30A6EC0045255B /* Project object */;
+}
