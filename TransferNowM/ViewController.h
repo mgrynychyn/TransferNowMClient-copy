@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface ViewController : NSViewController<NSApplicationDelegate>
+
 
 
 @end
+
 
