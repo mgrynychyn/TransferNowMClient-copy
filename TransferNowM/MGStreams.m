@@ -37,10 +37,19 @@ static uint8_t quit=255;
         
     }
     self.spaceAvailable=YES;
-//    [self openStreams];
+ //   [self analyze];
+   [self openStreams];
     return self;
 }
 
+
+- (void) analyze{
+    
+    CFReadStreamRef readStream=(__bridge CFReadStreamRef)self.inputStream;//kCFStreamPropertySocketSecurityLevel
+    
+    CFTypeRef i=CFReadStreamCopyProperty(readStream, kCFStreamPropertySocketSecurityLevel);
+    NSLog(@"Security level %@",i);
+}
 - (void)openStreams
 {
     assert(self.inputStream != nil);            // streams must exist but aren't open
@@ -107,61 +116,15 @@ static uint8_t quit=255;
     NSNumber *stringLength=[NSNumber numberWithLong:longString.length];
     NSString *shortString=[[stringLength stringValue] stringByAppendingString:colon];
     longString=[shortString stringByAppendingString:longString];
-     NSLog(@"%@", longString);
+    
+    
+    
     [longString getCharacters:buffer];
     if([_outputStream hasSpaceAvailable])
           bytesWritten=[_outputStream write:(uint8_t *)buffer maxLength: ([longString length]*sizeof(unichar))];
 
-    NSLog(@"Written %zd bytes.", (ssize_t) bytesWritten);
-}
-/*
-
--(void) sendFile:(NSURL *)file{
-    
-    static  uint8_t     buffer[4096];
-    NSInteger bytesRead, bytesWritten=0;
-    
-    NSNumber *size;
-   
-    self.fileInputStream = [NSInputStream inputStreamWithURL:file];
-        //   [self.fileInputStream setDelegate:self];
-    [self.fileInputStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                        forMode:NSDefaultRunLoopMode];
-    
-    [file getResourceValue:&size forKey:@"NSURLFileSizeKey" error:nil];
-    self.fileSize=[size longValue];
-        
-    [self.fileInputStream open];
-
-    while([self.fileInputStream hasBytesAvailable])
-    {
-        bytesRead = [self.fileInputStream read:buffer maxLength:sizeof(buffer)];
-
-        if(bytesRead>0){
-  
-            bytesWritten = [self.outputStream write:buffer maxLength:bytesRead];
-             NSLog(@"Written %zd bytes.", (ssize_t) bytesWritten);
-            self.fileSize-=bytesWritten;
-
-            if(bytesWritten<bytesRead){
-                 bytesWritten = [self.outputStream write:buffer+sizeof(buffer)-(bytesRead-bytesWritten) maxLength:bytesRead-bytesWritten];
-                NSLog(@"Written %zd bytes(repetition).", (ssize_t) bytesWritten);
-                
-                self.fileSize-=bytesWritten;
-            }
-        }
-       
-         NSLog(@"fileSize= %zd bytes.", self.fileSize);
-    }
-    if(self.fileSize==0){
      
-        [self.delegate logWithFormat:[self.clientName stringByAppendingString:@" downloaded file: %@. "] name: file.lastPathComponent];
-     [self closeFileInputStream];
-    
-    }
-    
 }
- */
 
 -(void) sendFile:(NSURL *)file{
     
@@ -191,18 +154,18 @@ static uint8_t quit=255;
              if(bytesRead>0){
             
                  bytesWritten = [self.outputStream write:buffer maxLength:bytesRead];
-                 NSLog(@"Written %zd bytes.", (ssize_t) bytesWritten);
+                
                  self.fileSize-=bytesWritten;
             
                  if(bytesWritten<bytesRead){
                      bytesWritten = [self.outputStream write:buffer+sizeof(buffer)-(bytesRead-bytesWritten) maxLength:bytesRead-bytesWritten];
-                     NSLog(@"Written %zd bytes(repetition).", (ssize_t) bytesWritten);
+                     
                 
                      self.fileSize-=bytesWritten;
                  }
             }
          
-        NSLog(@"fileSize= %zd bytes.", self.fileSize);
+        
     }
         
         if(self.fileSize==0){
@@ -239,7 +202,7 @@ static uint8_t quit=255;
            
              assert(stream == self.outputStream);
             
-            NSLog(@"Has space available");
+        
             
         } break;
             
@@ -251,8 +214,7 @@ static uint8_t quit=255;
             
             bytesRead = [self.inputStream read:b maxLength:sizeof(b)];
             
-            NSLog(@"We received: %u", b[0]);
-            NSLog(@"We received char: %s", b);
+           
             if(bytesRead<=2){
                 
                 if(b[0]==quit){
@@ -286,7 +248,7 @@ static uint8_t quit=255;
                 
                 [self.delegate terminate];
                 [self.delegate startBrowser];
-                NSLog(@"Bytes received %lu, restarting",bytesRead);
+               
             }
             
             

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65011EEB1B3D88B100F15DE3 /* Icons.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 65011EEA1B3D88B100F15DE3 /* Icons.iconset */; };
+		6587710C1B46FB03000EA542 /* Icons.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6587710B1B46FB03000EA542 /* Icons.iconset */; };
 		659126631B30A6ED0045255B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126621B30A6ED0045255B /* main.m */; };
 		659126661B30A6ED0045255B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659126651B30A6ED0045255B /* ViewController.m */; };
 		659126681B30A6ED0045255B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659126671B30A6ED0045255B /* Images.xcassets */; };
@@ -27,8 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		65011EEA1B3D88B100F15DE3 /* Icons.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Icons.iconset; sourceTree = "<group>"; };
 		651DF88F1B39C23C00812527 /* TransferNowM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TransferNowM.entitlements; sourceTree = "<group>"; };
+		6587710B1B46FB03000EA542 /* Icons.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Icons.iconset; sourceTree = "<group>"; };
 		6591265A1B30A6ED0045255B /* TransferNowM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransferNowM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6591265E1B30A6ED0045255B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659126621B30A6ED0045255B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,7 +64,6 @@
 		659126511B30A6EC0045255B = {
 			isa = PBXGroup;
 			children = (
-				65011EEA1B3D88B100F15DE3 /* Icons.iconset */,
 				6591265C1B30A6ED0045255B /* TransferNowM */,
 				659126731B30A6ED0045255B /* TransferNowMTests */,
 				6591265B1B30A6ED0045255B /* Products */,
@@ -83,6 +82,7 @@
 		6591265C1B30A6ED0045255B /* TransferNowM */ = {
 			isa = PBXGroup;
 			children = (
+				6587710B1B46FB03000EA542 /* Icons.iconset */,
 				651DF88F1B39C23C00812527 /* TransferNowM.entitlements */,
 				659126841B30A7600045255B /* MGStreams.h */,
 				659126821B30A73C0045255B /* MGStreams.m */,
@@ -208,7 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659126681B30A6ED0045255B /* Images.xcassets in Resources */,
-				65011EEB1B3D88B100F15DE3 /* Icons.iconset in Resources */,
+				6587710C1B46FB03000EA542 /* Icons.iconset in Resources */,
 				6591266B1B30A6ED0045255B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +280,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer: Maria Grynychyn (8SP9T7Z3WN)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -323,7 +323,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer: Maria Grynychyn (8SP9T7Z3WN)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -345,7 +345,6 @@
 		6591267B1B30A6ED0045255B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransferNowM/TransferNowM.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -358,7 +357,6 @@
 		6591267C1B30A6ED0045255B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransferNowM/TransferNowM.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;

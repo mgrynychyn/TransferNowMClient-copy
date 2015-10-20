@@ -7,18 +7,34 @@
 //
 
 #import "ViewController.h"
+#include <sys/socket.h>
 #import "MGStreams.h"
+#import <dns_sd.h>
+
 
 static NSString * kBonjourType = @"_bft._tcp.";
 static NSString * kDomain = @"local.";
+static NSString * kSrvName ;
 
-@interface ViewController() <NSTableViewDataSource, NSTableViewDelegate, NSNetServiceDelegate, NSNetServiceBrowserDelegate,MGStreamsDelegate>
+static NSNetService *service;
+static DNSServiceRef browseRef;
+static DNSServiceRef resolveRef;
+
+@interface ViewController() <NSTableViewDataSource, NSTableViewDelegate, NSNetServiceDelegate, NSNetServiceBrowserDelegate, MGStreamsDelegate>
+
 @property (weak) IBOutlet NSTableView *tableView;
+static void serviceFound(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context);
+
+
+static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, const char *hosttarget, uint16_t port,  uint16_t txtLen, const unsigned char *txtRecord, void *context );
 
 @property (strong,nonatomic) NSMutableArray *messages;
 @property MGStreams *connection;
 @property (nonatomic, strong, readwrite) NSNetService * netService;
+
 @property (nonatomic, strong, readwrite) NSMutableSet * runLoopModesMutable;
+@property (nonatomic, strong, readonly ) NSMutableSet * listeningSockets;
+
 @property (nonatomic, strong, readwrite) NSNetServiceBrowser *  browser;
 @property NSString *clientName;
 @property BOOL status;
@@ -42,7 +58,6 @@ static NSString * kDomain = @"local.";
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     [self terminate];
     
-    NSLog(@"WILL TERMINATE");
     
 }
 
@@ -57,7 +72,8 @@ static NSString * kDomain = @"local.";
     [_tableView setDataSource:self];
     
     self.clientName=@"Client";
-    
+    self.runLoopModesMutable = [[NSMutableSet alloc] initWithObjects:NSDefaultRunLoopMode, nil];
+   
     
     BOOL isStale;
     NSData *bookmark=[[NSUserDefaults standardUserDefaults] objectForKey:@"BaseDirectory"];
@@ -65,34 +81,43 @@ static NSString * kDomain = @"local.";
         self.baseUrl=[NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&isStale error:nil];
         
         if([self.baseUrl startAccessingSecurityScopedResource]){
+            if(!self.status && (self.baseUrl!=nil)){
+                [self logWithFormat:@"%@" name:@"Server started."];
+                [self logWithFormat:@"Selected directory: %@." name:[self.baseUrl.description stringByReplacingOccurrencesOfString:@"file:" withString:@""]];
+                
+            }
+            
+            self.status=YES;
+            
             [self startBrowser];
+            
         }
         
     }
     else{
-        
-        [self logWithFormat:@"%@" name:@"Select a directory to transfer files from using Menu->File->Open..."];
-        NSLog(@"Select directory");
-    }
-    //   [self startBrowser];
+        [self logWithFormat:@"%@" name:@"Select a directory for transfering files using Menu->TransferNowM->Select Directory"];
+            }
+    
+    // Added
+    
+//    self->_listeningSockets = [[NSMutableSet alloc] init];
 }
 
-
+/*
 
 - (void)startBrowser
 // See comment in header.
 {
-    
+
     self.browser = [[NSNetServiceBrowser alloc] init];
-    NSLog(@"Browser started");
-    
+    self.browser.includesPeerToPeer=YES;
     [self.browser setDelegate:self];
     [self.browser searchForServicesOfType:kBonjourType inDomain:kDomain];
-    
+
     if(!self.status && (self.baseUrl!=nil)){
         [self logWithFormat:@"%@" name:@"Server started."];
         [self logWithFormat:@"Selected directory: %@." name:[self.baseUrl.description stringByReplacingOccurrencesOfString:@"file:" withString:@""]];
-        NSLog(@"Selected directory is %@", [self.baseUrl.description stringByReplacingOccurrencesOfString:@"file:" withString:@""]);
+        
     }
     
     self.status=YES;
@@ -100,19 +125,86 @@ static NSString * kDomain = @"local.";
     
 }
 
+*/
+
+- (void) startNetBrowser{
+    NSLog(@"NetBrowser started");
+    self.browser = [[NSNetServiceBrowser alloc] init];
+    self.browser.includesPeerToPeer=YES;
+    [self.browser setDelegate:self];
+    [self.browser searchForServicesOfType:kBonjourType inDomain:kDomain];
+    
+}
+
+
+- (void) anotherThread:(NSString *)refName{
+    NSLog (@"Listening socket callback!");
+    if([refName isEqual:@"Browse"])
+        DNSServiceProcessResult(browseRef);
+    else
+        DNSServiceProcessResult(resolveRef);
+}
+
+-(void) startBrowser{
+    char type[100];
+    char domain[100];
+    [kBonjourType getCString:type maxLength:sizeof(type) encoding:1];
+    [kDomain getCString:domain maxLength:sizeof(domain) encoding:1];
+     DNSServiceErrorType  errType=DNSServiceBrowse(&browseRef,kDNSServiceFlagsIncludeP2P,kDNSServiceInterfaceIndexAny,type,domain,serviceFound,(__bridge void *)(self));
+    if(errType==kDNSServiceErr_NoError){
+        
+       NSThread *t = [[ NSThread alloc] initWithTarget:self selector:@selector(anotherThread:) object:@"Browse"];
+        [t start];
+       
+    }
+    
+}
+
+
+static void serviceFound(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) {
+    if(errorCode==kDNSServiceErr_NoError){
+        NSLog(@"Service found - name %s, type %s domain %s", serviceName, regtype, replyDomain);
+        kSrvName=[NSString stringWithCString:serviceName encoding:1];
+    }
+    else
+        NSLog(@"Error %d", errorCode);
+
+   DNSServiceErrorType  type=DNSServiceResolve(&resolveRef,kDNSServiceFlagsForceMulticast,interfaceIndex,serviceName,regtype,replyDomain,serviceResolved,context);
+    if(type==kDNSServiceErr_NoError){
+  
+        DNSServiceProcessResult(resolveRef);
+    }
+   
+}
+
+static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, const char *hosttarget, uint16_t port, uint16_t txtLen, const unsigned char *txtRecord, void *context ){
+    
+    
+    if(errorCode==kDNSServiceErr_NoError){
+        
+       
+        dispatch_async(  dispatch_get_main_queue(), ^{ [(__bridge ViewController *)context startNetBrowser];});
+    
+        
+    }
+    
+
+}
+
+
+
 #pragma mark * "NetServiceBrowser" delegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
     assert(browser == self.browser);
-    NSLog(@"Removed service");
     
     assert(service != nil);
     //    if ((self.netService!=nil) && [service isEqual:self.netService]){
     //        self.netService=nil;
     if ( ! moreComing ){
         [self.connection closeStreams];
-        
+        [self logWithFormat:@"%@" name:@"Disconnected."];
     }
 }
 
@@ -121,22 +213,23 @@ static NSString * kDomain = @"local.";
     //   if(self.netService!=nil)
     //        return;
     assert(service!=nil);
-    
+    NSLog(@"Did find service %@",service);
     self.netService=service;
-    
-    NSLog(@"Did find a service");
     
     if ( ! moreComing )
     {
         resolved=NO;
         [self.netService setDelegate:self];
+       
         [self.netService resolveWithTimeout:5.0];
-        //      [self connectToService:self.netService];
+       
+ //       [self connectToService:self.netService];
         
     }
+    
 }
 
-//NSNeteServiceDelegate
+//NSNetServiceDelegate
 - (void)netServiceDidResolveAddress:(NSNetService *)netService
 {
     if(!resolved){
@@ -150,8 +243,6 @@ static NSString * kDomain = @"local.";
 
 - (void)netService:(NSNetService *)netService didNotResolve:(NSDictionary *)errorDict{
     
-    NSLog (@"Did not resolve the address %@",errorDict.allKeys);
-    NSLog (@"Did not resolve the address %@",errorDict.allValues);
     
     
 }
@@ -163,7 +254,6 @@ static NSString * kDomain = @"local.";
     NSOutputStream *    outStream;
     
     assert(service != nil);
-    
     
     success = [service getInputStream:&inStream outputStream:&outStream];
     
@@ -177,7 +267,7 @@ static NSString * kDomain = @"local.";
         [self.connection setComputerName:computerName];
         [self.connection setClientName:self.clientName];
         [self.connection openStreams];
-        NSLog(@"Connected with stream status input: %lu output: %lu",(unsigned long)inStream.streamStatus,(unsigned long)outStream.streamStatus);
+       
         
         
     }
@@ -231,14 +321,20 @@ static NSString * kDomain = @"local.";
 
 -(void) terminate{
     
-    if(self.netService!=nil)
+    if(self.netService!=nil){
+        
+   
         [self.netService stop];
+  
+    }
+    
     
     if(self.browser!=nil)
         [self.browser stop];
     
     [self.baseUrl stopAccessingSecurityScopedResource];
     
+   
 }
 
 // Directory selection related
@@ -246,8 +342,43 @@ static NSString * kDomain = @"local.";
 - (void) initializeMenu{
     
     NSMenu *menu=[NSApp mainMenu];
+    //Addition
+    NSMenuItem *about, *quit;
+    NSMenu *theMenu;
+    NSArray *ar=[menu itemArray];
+    if([(NSMenuItem *)ar[0] hasSubmenu])
+        theMenu=((NSMenuItem *)ar[0]).submenu ;
+    
+    ar=[theMenu itemArray];
+    for(NSMenuItem *item in ar){
+        
+        if([item.title containsString:@"About"])
+            about=item;
+        
+        if([item.title containsString:@"Quit"])
+            quit=item;
+            
+    }
+    [menu removeItemAtIndex:0];
+    NSMenuItem *one=[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
+    theMenu =[[NSMenu alloc] init];
+    
+    NSMenu * myMenu=[[NSMenu alloc] initWithTitle:@"TransferNowM"];
+    
+    if(about!=nil)
+        [theMenu addItem:about];
+    
+    [theMenu addItemWithTitle:@"Select directory" action: @selector(selectDirectory) keyEquivalent:@""];
+    if(quit!=nil)
+        [theMenu addItem:quit];
+    [[theMenu itemAtIndex:1] setTarget:self];
+    [one setSubmenu:theMenu];
+    [myMenu addItem:one];
+    [NSApp setMainMenu:myMenu];
+   //The end
+/*
     NSMenuItem *file=[menu itemAtIndex:1];
-    NSLog(@"Number of items %ld",(long)menu.numberOfItems);
+   
     if([file hasSubmenu] ){
         
         NSMenu *fileMenu=file.submenu;
@@ -255,10 +386,10 @@ static NSString * kDomain = @"local.";
         [open setTarget:self];
         [open setAction:@selector(selectDirectory)];
         [[fileMenu itemAtIndex:1] setEnabled:YES];
-        NSLog(@"Number of items in file submenu %ld",(long)fileMenu.numberOfItems);
+       
         
     }
-    
+*/
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     panel.canChooseDirectories=YES;
     panel.canChooseFiles=NO;
@@ -282,21 +413,25 @@ static NSString * kDomain = @"local.";
                     self.baseUrl=theUrl;
                     if(self.connection!=nil)
                         self.connection.baseUrl=theUrl;
-                    [self logWithFormat:@"Selected directory: %@" name:[theUrl.description stringByReplacingOccurrencesOfString:@"file:" withString:@""]];
+                    
                     [[NSUserDefaults standardUserDefaults] setObject:bookmark forKey:@"BaseDirectory"];
+          //          [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"BaseDirectory"];
                     if(!self.status)
                         [self startBrowser];
-                    NSLog(@"Directory %@",theUrl.description);
+                    else
+                        [self logWithFormat:@"Selected directory: %@" name:[theUrl.description stringByReplacingOccurrencesOfString:@"file:" withString:@""]]
+                        ;
+                   
                     
                 }
                 else
-                    NSLog(@"Resource was not released");
+                   ;
                 // Open  the document.
             }
             
             if (result == NSFileHandlingPanelCancelButton) {
                 
-                NSLog(@"Cancel clicked");
+                
                 
                 // Open  the document.
             }
