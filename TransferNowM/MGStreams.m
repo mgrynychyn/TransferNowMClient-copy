@@ -37,19 +37,13 @@ static uint8_t quit=255;
         
     }
     self.spaceAvailable=YES;
- //   [self analyze];
+
    [self openStreams];
     return self;
 }
 
 
-- (void) analyze{
-    
-    CFReadStreamRef readStream=(__bridge CFReadStreamRef)self.inputStream;//kCFStreamPropertySocketSecurityLevel
-    
-    CFTypeRef i=CFReadStreamCopyProperty(readStream, kCFStreamPropertySocketSecurityLevel);
-    NSLog(@"Security level %@",i);
-}
+
 - (void)openStreams
 {
     assert(self.inputStream != nil);            // streams must exist but aren't open

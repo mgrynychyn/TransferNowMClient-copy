@@ -128,7 +128,7 @@ static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_
 */
 
 - (void) startNetBrowser{
-    NSLog(@"NetBrowser started");
+   
     self.browser = [[NSNetServiceBrowser alloc] init];
     self.browser.includesPeerToPeer=YES;
     [self.browser setDelegate:self];
@@ -138,11 +138,9 @@ static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_
 
 
 - (void) anotherThread:(NSString *)refName{
-    NSLog (@"Listening socket callback!");
+   
     if([refName isEqual:@"Browse"])
         DNSServiceProcessResult(browseRef);
-    else
-        DNSServiceProcessResult(resolveRef);
 }
 
 -(void) startBrowser{
@@ -163,11 +161,10 @@ static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_
 
 static void serviceFound(DNSServiceRef sdRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *serviceName, const char *regtype, const char *replyDomain, void *context) {
     if(errorCode==kDNSServiceErr_NoError){
-        NSLog(@"Service found - name %s, type %s domain %s", serviceName, regtype, replyDomain);
+       
         kSrvName=[NSString stringWithCString:serviceName encoding:1];
     }
-    else
-        NSLog(@"Error %d", errorCode);
+   
 
    DNSServiceErrorType  type=DNSServiceResolve(&resolveRef,kDNSServiceFlagsForceMulticast,interfaceIndex,serviceName,regtype,replyDomain,serviceResolved,context);
     if(type==kDNSServiceErr_NoError){
@@ -213,7 +210,7 @@ static void serviceResolved( DNSServiceRef sdRef, DNSServiceFlags flags, uint32_
     //   if(self.netService!=nil)
     //        return;
     assert(service!=nil);
-    NSLog(@"Did find service %@",service);
+   
     self.netService=service;
     
     if ( ! moreComing )
